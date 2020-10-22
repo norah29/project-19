@@ -1,0 +1,77 @@
+var bananaImage,background,monkey,player_running;
+var obstacleImage,backImage,
+    score=0;
+var obstacleGroup;
+var foodGroup;
+
+
+function preload(){
+
+ /* preload your images here of the background,        monkey,banana and the obstacle */
+  
+  backImage=loadImage("jungle.png");
+  player_running=loadAnimation("Monkey_01.png","Monkey_02.png","Monkey_03.png","Monkey_04.png","Monkey_0.5png","Monkey_06.png","Monkey_07.png","Monkey_08.png","Monkey_09.png","Monkey_10.png");
+  bananaImage=loadImage("banana.png");
+  obstacleImage=loadImage("stone.png");
+  
+}
+
+function setup() {
+  createCanvas(400,400);
+  
+  back=createSprite(200,200,400,400);
+  back.addImage("jungle",backImage);
+  
+  monkey=createSprite(50,280,20,10);
+  monkey.addAnimation("Monkey",player_running);
+  
+  obstacleGroup=new Group();
+  foodGroup=new Group();
+  
+}
+
+function draw() {
+  background(220);
+  
+   switch(score){
+    case 10:monkey.scale=0.12;
+  break;
+  
+  case 20:monkey.scale=0.14;
+  break;
+  
+  case 30:monkey.scale=0.16;
+  break;
+  
+  case 40:monkey.scale=0.18;
+  break;
+  
+  default:break;
+  }
+  
+}
+
+
+function Obstacles(){
+  if(World.frameCount % 300 === 0) {
+    var obstacle = createSprite(390,200);
+     obstacle.scale = 0.5;
+     obstacle.velocityX=-5;
+     obstacle.lifetime=400;
+     obstacle.addImage(obstacleImage);
+    obstacleGroup.add(obstacle);
+    
+  }
+}
+
+function Bananas(){
+if(World.frameCount%100===0) {
+var banana=createSprite(390,randomNumber(205,150));
+banana.scale=0.05;
+banana.velocityX=-8;
+banana.y=randomNumber(205,150);
+banana.lifetime=400;
+banana.addImage(bananaImage);
+  foodGroup.add(banana);
+  }
+}
